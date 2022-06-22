@@ -16,6 +16,6 @@ const app = Vue.createApp({
 			}
 		}
 	}
-});
+});u
 
 app.mount('#user-goal');
