@@ -1,6 +1,7 @@
 <template>
   <section>
     <h2>My Friends</h2>
+    <new-friend @add-contact="addContact"></new-friend>
     <ul>
       <friend-contact
         v-for="friend in friends"
@@ -11,6 +12,7 @@
         :email-address="friend.email"
         :is-favorite="friend.isFavorite"
         @toggle-favorite="toggleFavoriteStatus"
+        @delete="deleteContact"
       ></friend-contact>
     </ul>
   </section>
@@ -42,6 +44,19 @@ export default {
     toggleFavoriteStatus(friendId) {
       const identifiedFriend = this.friends.find(friend => friend.id === friendId);
       identifiedFriend.isFavorite = !identifiedFriend.isFavorite;
+    },
+    addContact(name, phone, email) {
+      const newFriendContact = {
+        id: new Date().toISOString(),
+        name: name,
+        phone: phone,
+        email: email,
+        isFavorite: false
+      };
+      this.friends.push(newFriendContact);
+    },
+    deleteContact(friendId) {
+      this.friends = this.friends.filter(friend => friend.id !== friendId ? true : false);
     }
   }
 };
