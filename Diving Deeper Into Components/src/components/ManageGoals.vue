@@ -1,5 +1,4 @@
 <template>
-	<div>
 		<h2>Manage Goals</h2>
 		<input type="text" ref="goal">
 		<button @click="setGoal">Set Goal</button>
@@ -10,7 +9,6 @@
 				<button @click="confirmError">Okay</button>
 			</error-alert>
 		</teleport>
-	</div>
 </template>
 
 <script>
