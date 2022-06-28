@@ -6,6 +6,8 @@ import TeamsList from "./components/teams/TeamsList";
 import UsersList from "./components/users/UsersList";
 import TeamMembers from "./components/teams/TeamMembers";
 import NotFound from "./components/nav/NotFound";
+import TeamsFooter from "./components/teams/TeamsFooter";
+import UsersFooter from "./components/users/UsersFooter";
 
 const router = createRouter({
 	history: createWebHistory(),
@@ -17,7 +19,10 @@ const router = createRouter({
 		{
 			name: 'teams',
 			path: '/teams',
-			component: TeamsList,
+			components: {
+				default: TeamsList,
+				footer: TeamsFooter
+			},
 			children: [
 				{
 					name: 'team-members',
@@ -30,14 +35,49 @@ const router = createRouter({
 		},
 		{
 			path: '/users',
-			component: UsersList
+			components: {
+				default: UsersList,
+				footer: UsersFooter
+			},
+			beforeEnter(to, from, next) {
+				console.log('users beforeEnter');
+				console.log(to, from);
+				next();
+
+			}
 		},
 		{
 			path: '/:notFound(.*)',
 			component: NotFound
 		}
 	],
-	linkActiveClass: 'router-link-active'
+	linkActiveClass: 'router-link-active',
+	scrollBehavior(_, _2, savedPosition) {
+		//console.log(to, from, savedPosition);
+		if (savedPosition) {
+			return savedPosition;
+		}
+		return {
+			left: 0,
+			top: 0
+		};
+	}
+});
+
+router.beforeEach(function(to, from, next) {
+	console.log('Global beforeEach');
+	console.log(to, from);
+	// if (to.name === 'team-members') {
+	// 	next();
+	// } else {
+	// 	next({
+	// 		name: 'team-members',
+	// 		params: {
+	// 			team: 't2'
+	// 		}
+	// 	});
+	// }
+	next();
 });
 
 const app = createApp(App)
