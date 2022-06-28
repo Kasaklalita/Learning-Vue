@@ -5,6 +5,7 @@
       :key="team.id"
       :name="team.name"
       :member-count="team.members.length"
+      :id="team.id"
     ></teams-item>
   </ul>
 </template>
