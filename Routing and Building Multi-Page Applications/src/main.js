@@ -79,6 +79,11 @@ router.beforeEach(function(to, from, next) {
 	// }
 	next();
 });
+//
+// router.afterEach(function(to, from) {
+// 	// sending analytics data
+// });
+
 
 const app = createApp(App)
 
